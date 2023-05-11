@@ -64,8 +64,6 @@ class AlumnoController extends Controller
      */
     public function update(Request $request)
     {
-//        dd(Alumno->update($request->all()));
-//        $request->except('_method','_token','submit');
         $alumno = Alumno::find($request->id);
         $alumno->update($request->all());
         return $alumno;
@@ -74,8 +72,12 @@ class AlumnoController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Alumno $alumno)
+    public function destroy($id)
     {
-        //
+        $alumno = Alumno::where('id', $id)
+            ->orderBy('nombres')
+            ->first();
+        $alumno->update(['status'=>0]);
+        return $alumno;
     }
 }
