@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use \App\Http\Controllers\AlumnoController;
+use \App\Http\Controllers\AsignaturaController;
+use \App\Http\Controllers\RasgoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('alumnos', AlumnoController::class);
+Route::resource('asignatura', AsignaturaController::class);
+Route::resource('rasgo', RasgoController::class);

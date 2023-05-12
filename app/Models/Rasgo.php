@@ -7,5 +7,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rasgo extends Model
 {
-    use HasFactory;
+    protected $fillable = [
+        'rasgo',
+        'porcentaje',
+        'idAsignatura',
+        'status'
+    ];
 }

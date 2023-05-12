@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Asignatura;
+use Exception;
 use Illuminate\Http\Request;
 
 class AsignaturaController extends Controller
@@ -12,13 +13,15 @@ class AsignaturaController extends Controller
      */
     public function index()
     {
-        //
+        $asignaturas = Asignatura::where('status', 1)
+            ->orderBy('asignatura')
+            ->get();
+        return $asignaturas;
     }
-
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         //
     }
@@ -28,15 +31,23 @@ class AsignaturaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $asignatura = Asignatura::create($request->all());
+            return $asignatura;
+        }catch(Exception $e ){
+            return $e;
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Asignatura $asignatura)
+    public function show($id)
     {
-        //
+        $asignatura = Asignatura::where('id', $id)
+            ->orderBy('asignatura')
+            ->first();
+        return $asignatura;
     }
 
     /**
@@ -50,16 +61,22 @@ class AsignaturaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Asignatura $asignatura)
+    public function update(Request $request)
     {
-        //
+        $asignatura = Asignatura::find($request->id);
+        $asignatura->update($request->all());
+        return $asignatura;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Asignatura $asignatura)
+    public function destroy($id)
     {
-        //
+        $asignatura = Asignatura::where('id', $id)
+            ->orderBy('asignatura')
+            ->first();
+        $asignatura->update(['status'=>0]);
+        return $asignatura;
     }
 }

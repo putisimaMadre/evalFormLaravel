@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('rasgos', function (Blueprint $table) {
             $table->id();
+            $table->string('rasgo');
+            $table->string('porcentaje');
+            $table->integer('idAsignatura');
+            $table->boolean('status');
             $table->timestamps();
         });
     }

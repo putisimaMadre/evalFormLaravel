@@ -56,7 +56,7 @@ class AlumnoController extends Controller
      */
     public function edit($id)
     {
-        return $id;
+        //return $id;
     }
 
     /**
