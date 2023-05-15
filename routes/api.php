@@ -23,4 +23,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 
 Route::resource('alumnos', AlumnoController::class);
 Route::resource('asignatura', AsignaturaController::class);
-Route::resource('rasgo', RasgoController::class);
+Route::controller(RasgoController::class)->group(function(){
+    Route::resource('rasgo', RasgoController::class);
+    Route::post('rasgoResumen', 'rasgoResumen');
+    Route::post('getGrafico', 'getGrafico');
+});
+

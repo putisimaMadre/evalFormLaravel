@@ -26,6 +26,38 @@ class RasgoController extends Controller
         return $rasgo;
     }
 
+    public function rasgoResumen(Request $request)
+    {
+//        return $request;
+//        //$total = 0;
+        $porcentajes = DB::table('rasgos')
+            ->select(['asignaturas.asignatura as asignatura', 'rasgo', 'porcentaje', 'rasgos.status'])
+            ->join('asignaturas', 'rasgos.idAsignatura', '=', 'asignaturas.id')
+            ->where('asignaturas.asignatura', $request->get('asignatura'))
+            ->where('grado', $request->get('grado'))
+            ->where('grupo', $request->get('grupo'))
+            ->get();
+
+        return $porcentajes;
+
+//        foreach ($porcentajes as $porcentaje){
+//            $total = $total + $porcentaje->porcentaje;
+//        }
+//        return $total;
+    }
+
+    public function getGrafico(Request $request){
+        $grafico = DB::table('rasgos')
+            ->select(['asignaturas.asignatura as name', 'porcentaje as value'])
+            ->join('asignaturas', 'rasgos.idAsignatura', '=', 'asignaturas.id')
+            ->where('asignaturas.asignatura', $request->get('asignatura'))
+            ->where('grado', $request->get('grado'))
+            ->where('grupo', $request->get('grupo'))
+            ->get();
+
+        return $grafico;
+    }
+
     /**
      * Show the form for creating a new resource.
      */

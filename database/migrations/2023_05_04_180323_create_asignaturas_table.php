@@ -19,6 +19,11 @@ return new class extends Migration
             $table->boolean('status');
             $table->timestamps();
         });
+
+        Schema::table('inventories', function($table)
+        {
+            $table->unique('sku');
+        });
     }
 
     /**
