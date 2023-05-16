@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Models\Actividad;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ActividadController extends Controller
 {
@@ -12,7 +14,13 @@ class ActividadController extends Controller
      */
     public function index()
     {
-        //
+        $actividades = DB::table('rasgos')
+            ->select(['actividads.id', 'asignaturas.asignatura as idAsignatura', 'grado', 'grupo', 'rasgo', 'actividads.actividad', 'actividads.status'])
+            ->join('asignaturas', 'rasgos.idAsignatura', '=', 'asignaturas.id')
+            ->join('actividads', 'actividads.idRasgo', '=', 'rasgos.id')
+            ->where('actividads.status', 1)
+            ->get();
+        return $actividades;
     }
 
     /**
@@ -28,15 +36,23 @@ class ActividadController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        try {
+            $rasgo = Actividad::create($request->all());
+            return $rasgo;
+        }catch(Exception $e ){
+            return $e;
+        }
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Actividad $actividad)
+    public function show($id)
     {
-        //
+        $rasgo = Actividad::where('id', $id)
+            ->orderBy('actividad')
+            ->first();
+        return $rasgo;
     }
 
     /**
@@ -52,14 +68,20 @@ class ActividadController extends Controller
      */
     public function update(Request $request, Actividad $actividad)
     {
-        //
+        $rasgo = Actividad::find($request->id);
+        $rasgo->update($request->all());
+        return $rasgo;
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Actividad $actividad)
+    public function destroy($id)
     {
-        //
+        $rasgo = Actividad::where('id', $id)
+            ->orderBy('rasgo')
+            ->first();
+        $rasgo->update(['status'=>0]);
+        return $rasgo;
     }
 }

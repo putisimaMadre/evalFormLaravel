@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('actividads', function (Blueprint $table) {
             $table->id();
+            $table->string('actividad');
+            $table->integer('idRasgo');
+            $table->integer('idAsignatura');
+            $table->boolean('status');
             $table->timestamps();
         });
     }
