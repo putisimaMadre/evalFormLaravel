@@ -21,7 +21,7 @@ class RasgoController extends Controller
         $rasgo = DB::table('rasgos')
             ->select(['rasgos.id', 'asignaturas.asignatura as idAsignatura', 'grado', 'grupo', 'rasgo', 'porcentaje', 'rasgos.status'])
             ->join('asignaturas', 'rasgos.idAsignatura', '=', 'asignaturas.id')
-            ->where('rasgos.status', 1)
+            ->where('rasgos.status','=', 1)
             ->get();
         return $rasgo;
     }

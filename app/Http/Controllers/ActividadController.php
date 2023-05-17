@@ -18,7 +18,7 @@ class ActividadController extends Controller
             ->select(['actividads.id', 'asignaturas.asignatura as idAsignatura', 'grado', 'grupo', 'rasgo', 'actividads.actividad', 'actividads.status'])
             ->join('asignaturas', 'rasgos.idAsignatura', '=', 'asignaturas.id')
             ->join('actividads', 'actividads.idRasgo', '=', 'rasgos.id')
-            ->where('actividads.status', 1)
+            ->where('actividads.status', '=', 1)
             ->get();
         return $actividades;
     }

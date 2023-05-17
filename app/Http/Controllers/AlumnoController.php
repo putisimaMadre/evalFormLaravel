@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alumno;
+use App\Models\AlumnoActividad;
+use App\Models\Asignatura;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use PHPUnit\Exception;
 
 class AlumnoController extends Controller
@@ -17,6 +20,37 @@ class AlumnoController extends Controller
             ->orderBy('nombres')
             ->get();
         return $alumnos;
+    }
+
+    public function busquedaGradoGrupoTurno(Request $request)
+    {
+        //FALTA EL TURNO
+        $asignatura = DB::table('asignaturas')
+            ->select(['grado', 'grupo'])
+            ->where('id', $request->idAsignatura)
+            ->first();
+        $alumnos = DB::table('alumnos')
+            ->select(['id', 'nombres'])
+            ->where('grado', $asignatura->grado)
+            ->where('grupo', $asignatura->grupo)
+            ->get();
+//        return $alumnos;
+
+        foreach ($alumnos as $alumno) {
+            //AlumnoActividad::create($alumno->idAlumno);
+            //$alumno = Alumno::create($request->all());
+//            echo $alumno->nombres;
+
+            $aa = new AlumnoActividad;
+//
+            $aa->idAlumno = $alumno->id;
+            $aa->idActividad = $request->idAsignatura;
+            $aa->calificacion = 0;
+            $aa->status = 1;
+//
+            $aa->save();
+        }
+
     }
 
     /**
