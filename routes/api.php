@@ -23,8 +23,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-
-Route::resource('asignatura', AsignaturaController::class);
 Route::controller(AlumnoController::class)->group(function(){
     Route::resource('alumnos', AlumnoController::class);
     Route::post('busquedaGradoGrupoTurno', 'busquedaGradoGrupoTurno');
@@ -34,6 +32,11 @@ Route::controller(RasgoController::class)->group(function(){
     Route::post('rasgoResumen', 'rasgoResumen');
     Route::post('getGrafico', 'getGrafico');
 });
+Route::controller(CalificacionController::class)->group(function(){
+    Route::resource('calificacion', CalificacionController::class);
+    Route::post('consultarDatos', 'consultarDatos');
+});
+
+Route::resource('asignatura', AsignaturaController::class);
 Route::resource('actividad', ActividadController::class);
-Route::resource('calificacion', CalificacionController::class);
 

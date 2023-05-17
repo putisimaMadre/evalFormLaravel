@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('idAlumno');
             $table->integer('idActividad');
             $table->integer('calificacion');
-            $table->integer('comentario');
+            $table->string('comentario');
             $table->boolean('status');
             $table->timestamps();
         });

@@ -24,7 +24,11 @@ class AlumnoController extends Controller
 
     public function busquedaGradoGrupoTurno(Request $request)
     {
-        //FALTA EL TURNO
+//        return $request;
+        //el cero es el que trae el ultimo id de asignatura
+//        return $request;
+//        Esta funcion lo que hace es que guarda en la tabla alumnoActividad el id del alumno y con el id de la actividad
+//        FALTA EL TURNO
         $asignatura = DB::table('asignaturas')
             ->select(['grado', 'grupo'])
             ->where('id', $request->idAsignatura)
@@ -37,17 +41,12 @@ class AlumnoController extends Controller
 //        return $alumnos;
 
         foreach ($alumnos as $alumno) {
-            //AlumnoActividad::create($alumno->idAlumno);
-            //$alumno = Alumno::create($request->all());
-//            echo $alumno->nombres;
-
             $aa = new AlumnoActividad;
-//
             $aa->idAlumno = $alumno->id;
-            $aa->idActividad = $request->idAsignatura;
+            $aa->idActividad = $request->id;
             $aa->calificacion = 0;
+            $aa->comentario = "";
             $aa->status = 1;
-//
             $aa->save();
         }
 
