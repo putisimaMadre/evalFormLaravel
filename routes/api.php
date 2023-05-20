@@ -22,7 +22,7 @@ use \App\Http\Controllers\CalificacionController;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-
+Route::middleware(['cors'])->group(function () {
 Route::controller(AlumnoController::class)->group(function(){
     Route::resource('alumnos', AlumnoController::class);
     Route::post('busquedaGradoGrupoTurno', 'busquedaGradoGrupoTurno');
@@ -41,9 +41,9 @@ Route::controller(CalificacionController::class)->group(function(){
 
 Route::resource('asignatura', AsignaturaController::class);
 
-
 Route::controller(ActividadController::class)->group(function(){
     Route::resource('actividad', ActividadController::class);
     Route::post('getActividadesXRasgo', 'getActividadesXRasgo');
 });
 
+});
