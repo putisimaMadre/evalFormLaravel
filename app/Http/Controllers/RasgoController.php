@@ -26,6 +26,16 @@ class RasgoController extends Controller
         return $rasgo;
     }
 
+    public function getRasgoXAsignatura(Request $request){
+        $rasgo = DB::table('rasgos')
+            ->select(['rasgos.id', 'asignaturas.asignatura as idAsignatura', 'grado', 'grupo', 'rasgo', 'porcentaje', 'rasgos.status'])
+            ->join('asignaturas', 'rasgos.idAsignatura', '=', 'asignaturas.id')
+            ->where('rasgos.status','=', 1)
+            ->where('rasgos.idAsignatura','=', $request[0])
+            ->get();
+        return response()->json($rasgo);
+    }
+
     public function rasgoResumen(Request $request)
     {
 //        return $request;

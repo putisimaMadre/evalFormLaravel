@@ -31,6 +31,7 @@ Route::controller(RasgoController::class)->group(function(){
     Route::resource('rasgo', RasgoController::class);
     Route::post('rasgoResumen', 'rasgoResumen');
     Route::post('getGrafico', 'getGrafico');
+    Route::post('getRasgoXAsignatura', 'getRasgoXAsignatura');
 });
 Route::controller(CalificacionController::class)->group(function(){
     Route::resource('calificacion', CalificacionController::class);
