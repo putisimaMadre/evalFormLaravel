@@ -42,7 +42,7 @@ class CalificacionController extends Controller
     {
         //        return $request;
         $calificaciones = DB::table('asignaturas')
-            ->select(['alumnos.id', 'alumnos.numeroLista', 'alumnos.grado', 'alumnos.grupo', 'alumnos.nombres', 'alumnos.apellidoP', 'alumnos.apellidoM', 'actividads.actividad as actividad', 'actividads.id as idActividad', 'alumno_actividads.calificacion'])
+            ->select(['alumnos.id', 'alumnos.numeroLista', 'alumnos.grado', 'alumnos.grupo', 'alumnos.nombres', 'alumnos.apellidoP', 'alumnos.apellidoM', 'actividads.actividad as actividad', 'actividads.id as idActividad', 'alumno_actividads.calificacion', 'alumno_actividads.comentario'])
             ->join('rasgos', 'rasgos.idAsignatura', '=', 'asignaturas.id')
             ->join('actividads', 'actividads.idRasgo', '=', 'rasgos.id')
             ->join('alumno_actividads', 'alumno_actividads.idActividad', '=', 'actividads.id')
@@ -60,15 +60,39 @@ class CalificacionController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Request $request)
     {
-        $calificaciones = DB::table('asignaturas')
-            ->select(['alumnos.id', 'alumnos.numeroLista', 'alumnos.grado', 'alumnos.grupo', 'alumnos.nombres', 'alumnos.apellidoP', 'alumnos.apellidoM', 'actividads.actividad as actividad', 'actividads.id as idActividad', 'alumno_actividads.calificacion'])
-            ->join('rasgos', 'rasgos.idAsignatura', '=', 'asignaturas.id')
-            ->join('actividads', 'actividads.idRasgo', '=', 'rasgos.id')
-            ->join('alumno_actividads', 'alumno_actividads.idActividad', '=', 'actividads.id')
-            ->join('alumnos', 'alumnos.id', '=', 'alumno_actividads.idAlumno')
-            ->where('alumno_actividads.id', '=', $id)
+//        $calificaciones = DB::table('asignaturas')
+//            ->select(['alumnos.id', 'alumnos.numeroLista', 'alumnos.grado', 'alumnos.grupo', 'alumnos.nombres', 'alumnos.apellidoP', 'alumnos.apellidoM', 'actividads.actividad as actividad', 'actividads.id as idActividad', 'alumno_actividads.calificacion'])
+//            ->join('rasgos', 'rasgos.idAsignatura', '=', 'asignaturas.id')
+//            ->join('actividads', 'actividads.idRasgo', '=', 'rasgos.id')
+//            ->join('alumno_actividads', 'alumno_actividads.idActividad', '=', 'actividads.id')
+//            ->join('alumnos', 'alumnos.id', '=', 'alumno_actividads.idAlumno')
+//            ->where('alumno_actividads.id', '=', $id)
+//            ->get();
+//        return $calificaciones;
+
+//        $calificaciones = DB::table('alumno_actividads')
+//            ->where('alumno_actividads.idAlumno', '=', $request[0])
+//            ->where('alumno_actividads.idActividad', '=', $request[1])
+//            ->get();
+//        return $calificaciones;
+    }
+
+    public function consultarCalificacion(Request $request)
+    {
+//        $calificaciones = DB::table('asignaturas')
+//            ->select(['alumnos.id', 'alumnos.numeroLista', 'alumnos.grado', 'alumnos.grupo', 'alumnos.nombres', 'alumnos.apellidoP', 'alumnos.apellidoM', 'actividads.actividad as actividad', 'actividads.id as idActividad', 'alumno_actividads.calificacion'])
+//            ->join('rasgos', 'rasgos.idAsignatura', '=', 'asignaturas.id')
+//            ->join('actividads', 'actividads.idRasgo', '=', 'rasgos.id')
+//            ->join('alumno_actividads', 'alumno_actividads.idActividad', '=', 'actividads.id')
+//            ->join('alumnos', 'alumnos.id', '=', 'alumno_actividads.idAlumno')
+//            ->where('alumno_actividads.id', '=', $id)
+//            ->get();
+//        return $calificaciones;
+        $calificaciones = DB::table('alumno_actividads')
+            ->where('alumno_actividads.idAlumno', '=', $request[0])
+            ->where('alumno_actividads.idActividad', '=', $request[1])
             ->get();
         return $calificaciones;
     }

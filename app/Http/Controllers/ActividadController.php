@@ -23,6 +23,18 @@ class ActividadController extends Controller
         return $actividades;
     }
 
+    public function getActividadesXRasgo(Request $request){
+        $actividades = DB::table('rasgos')
+            ->select(['actividads.id', 'asignaturas.asignatura as idAsignatura', 'grado', 'grupo', 'rasgo', 'actividads.actividad', 'actividads.status'])
+            ->join('asignaturas', 'rasgos.idAsignatura', '=', 'asignaturas.id')
+            ->join('actividads', 'actividads.idRasgo', '=', 'rasgos.id')
+            ->where('actividads.status', '=', 1)
+            ->where('actividads.idRasgo','=', $request[0])
+            ->get();
+        return response()->json($actividades);
+//        return $request[0];
+    }
+
     /**
      * Show the form for creating a new resource.
      */
